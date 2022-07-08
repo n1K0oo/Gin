@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+   <meta charset="UTF-8">
+   <title>sell</title>
+   <link rel="stylesheet" href="statics/css/SalehouseInfomation.css">
+   <link href="statics/css/addhouse.css" rel="stylesheet">
+   <link href="statics/css/samar.css" rel="stylesheet">
+
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+   <style>
+      a{
+         text-decoration: none;
+      }
+   </style>
+</head>
+
+<body class="main_Container">
+  
+   <section class="section-padding bg-dark inner-header">
+      <div class="container">
+         
+            <div class="col-md-12 text-center">
+               <h1 class="mt-0 mb-3">房源信息发布</h1>
+            </div>
+      </div>
+   </section>
+   <hr style="height:5px;background-color:green;">
+   <section class="section-padding">
+      <form method="post" action="/releasenew" enctype="multipart/form-data">
+      <div class="container">
+         <div class="row">
+            <div class="col-lg-4 col-md-4 user-side-bar">
+               <div class="list-group">
+                  {{if eq .flag2 1}}
+                     <a class="list-group-item list-group-item-action active" href="/jumptorent"><span class="mdi mdi-heart"></span> 我要出租</a>
+                     <a class="list-group-item list-group-item-action " href="/jumptosell"><span class="mdi mdi-account-location"></span>我要卖房</a>
+                     <a class="list-group-item list-group-item-action" href="/homepage"><span class="mdi mdi-heart"></span>我要返回</a>
+                  {{else}}
+                     <a class="list-group-item list-group-item-action" href="/jumptorent"><span class="mdi mdi-heart"></span> 我要出租</a>
+                     <a class="list-group-item list-group-item-action active" href="/jumptosell"><span class="mdi mdi-account-location"></span>我要卖房</a>
+                     <a class="list-group-item list-group-item-action" href="/homepage"><span class="mdi mdi-heart"></span>我要返回</a>
+                  {{end}}
+               </div>
+            </div>
+            <div class="col-lg-8 col-md-9">
+
+                  <div class="card padding-card t-align-l no-radius border">
+                     <div class="card-body">
+                        <h5 class="card-title mb-4">房屋信息</h5>
+                        <div class="form-group">
+                           <label>房产名称 <span class="text-danger">*</span></label>
+                           <input type="text" class="form-control" placeholder="" name="esname">
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
+                              <label>类型1 <span class="text-danger">*</span></label>
+                              <select class="form-control custom-select" name="type1">
+                                 <option>公寓</option>
+                                 <option>别墅</option>
+                                 <option>商铺</option>
+                                 <option>写字楼</option>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>类型2 <span class="text-danger">*</span></label>
+                              <select class="form-control custom-select" name="type2">
+                                 <option>新房</option>
+                                 <option>二手房</option>
+                              </select>
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
+                              <label>开工年份 <span class="text-danger">*</span></label>
+                              <input name="time1" type="text" class="form-control" placeholder="输入年份">
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>竣工年份 <span class="text-danger">*</span></label>
+                              <input name="time2" type="text" class="form-control" placeholder="输入年份">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label>房产商 <span class="text-danger">*</span></label>
+                           <input name="estateagent" type="text" class="form-control" placeholder="">
+                        </div>
+
+
+                        <div id="quyu" class="row">
+                           <div class="form-group col-md-4">
+                              <label>区域 <span class="text-danger">*</span></label>
+                              <select name="area" v-model="area" class="form-control custom-select">
+                                 <option v-for="x in shuju" :value="x">${x}</option>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>街道 <span class="text-danger">*</span></label>
+                              <select  name="street" v-if="area === '鄞州区'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao1" :value="x">${x}</option>
+                              </select>
+                              <select name="street" v-else-if="area === '海曙区'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao2" :value="x">${x}</option>
+                              </select>
+                              <select name="street" v-else-if="area === '北仑区'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao3" :value="x">${x}</option>
+                              </select>
+                              <select name="street" v-else-if="area === '江北区'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao4" :value="x">${x}</option>
+                              </select>
+                              <select name="street" v-else-if="area === '镇海区'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao5" :value="x">${x}</option>
+                              </select>
+                              <select name="street" v-else-if="area === '奉化'" class="form-control custom-select">
+                                 <option  v-for="x in jiedao6" :value="x">${x}</option>
+                              </select>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label>详细地址 <span class="text-danger">*</span></label>
+                           <textarea class="form-control" rows="2" name="address"></textarea>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
+                              <label>小区名称 <span class="text-danger">*</span></label>
+                              <input name="communityname" type="text" class="form-control" placeholder="Enter Rent Price">
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>幢号房间号<span class="text-danger">*</span></label>
+                              <input name="roomno" type="text" class="form-control" placeholder="Enter Price Label">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
+                              <label>朝向 <span class="text-danger">*</span></label>
+                              <select name="toward" class="form-control custom-select">
+                                 <option>东</option>
+                                 <option>西</option>
+                                 <option>南</option>
+                                 <option>北</option>
+                              </select>
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>楼层类型 <span class="text-danger">*</span></label>
+                              <input name="layer" type="text" class="form-control" placeholder="输入楼层类型">
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="form-group col-md-4">
+                              <label>面积 <span class="text-danger">*</span></label>
+                              <input name="mianji" type="text" class="form-control" placeholder="输入  平方米">
+                           </div>
+                           <div class="form-group col-md-4">
+                              <label>均价 <span class="text-danger">*</span></label>
+                              <input name="price" type="text" class="form-control" placeholder="">
+                           </div>
+                        </div>
+                        <div class="form-group">
+                           <label>具体户型描述 <span class="text-danger">*</span></label>
+                           <textarea name="describe" class="form-control" rows="4"></textarea>
+                        </div>
+                        {{if eq .flag2 1}}
+                        <input name="flag2" value="1" type="hidden">
+                        {{else}}
+                        <input name="flag2" value="2" type="hidden">
+                        {{end}}
+                     </div>
+                  </div>
+            </div>
+         </div>
+            <div class="card padding-card t-align-l no-radius border">
+               <div class="card-body">
+                  <h5 class="card-title mb-4">房屋总览</h5>
+                  <div id="image"class="col-md-4">
+                     <div class="form-group">
+                        <label>户型图 <span class="text-danger"></span></label>
+                     </div>
+                     <div class="fuzone">
+                        <div class="fu-text">
+                           <span><i class="mdi mdi-image-area"></i>点击选择图片上传</span>
+                        </div>
+                        <input name="file1" class="upload" type="file" id="file1">
+                     </div>
+                  </div>
+                  <div class="form-group">
+                     <label>室内图 <span class="text-danger">*</span></label>
+                  </div>
+                  <div id = "image123"class="row">
+                     <div class="col-md-4">
+                        <div class="fuzone">
+                           <div class="fu-text">
+                              <span><i class="mdi mdi-image-area"></i>点击选择图片上传</span>
+                           </div>
+                           <input name="file2" class="upload" type="file" id="file2">
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="fuzone">
+                           <div class="fu-text">
+                              <span><i class="mdi mdi-image-area"></i>点击选择图片上传</span>
+                           </div>
+                           <input name="file3" class="upload" type="file" id="file3">
+                        </div>
+                     </div>
+                     <div class="col-md-4">
+                        <div class="fuzone">
+                           <div class="fu-text">
+                              <span><i class="mdi mdi-image-area"></i>点击选择图片上传</span>
+                           </div>
+                           <input name="file4" class="upload" type="file" id="file4">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">提交</button>
+
+         </div>
+      </div>
+      </form>
+   </section>
+
+   <script>
+      var quyu = new Vue({
+         el:"#quyu",
+         data:{
+            area:'鄞州区',
+            shuju:['鄞州区','海曙区','北仑区','江北区','镇海区','奉化'],
+            jiedao1:['下应街道','中河街道','东胜街道','明楼街道','潘火街道','百丈街道'],
+            jiedao2:['南门街道','西门街道','江厦街道','月湖街道','鼓楼街道'],
+            jiedao3:['北仑周边','柴桥','大碶','大榭','横河路','庐山路','戚家山','小港','霞浦'],
+            jiedao4:['孔浦街道','白沙街道','甬江街道','庄桥街道','中马街道'],
+            jiedao5:['蛟川街道','招宝山街道','庄市街道'],
+            jiedao6:['江口街道','锦屏街道','岳林街道']
+         },
+         delimiters:['${','}'],
+      })
+      var image = new Vue({
+         el:"#image",
+         data:{
+            image_url:''
+         },
+         delimiters:['${','}'],
+      })
+      var image123 = new Vue({
+         el:"#image123",
+         data:{
+            image_url1:'',
+            image_url2:'',
+            image_url3:''
+         },
+         delimiters:['${','}'],
+      })
+   </script>
+
+</body>
+
+</html>

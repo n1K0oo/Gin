@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>house-Regist</title>
+    <link rel="stylesheet" href="statics/css/SalehouseInfomation.css">
+    <link href="statics/css/addhouse.css" rel="stylesheet">
+    <link href="statics/css/samar.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+</head>
+
+<body class="main_Container">
+
+<section class="section-padding bg-dark inner-header">
+    <div class="container">
+
+        <div class="col-md-12 text-center">
+            <h1 class="mt-0 mb-3">房源信息修改</h1>
+        </div>
+    </div>
+</section>
+<hr style="height:5px;background-color:green;">
+<section class="section-padding">
+    <form method="post" action="/estateupdate2" enctype="multipart/form-data">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-9">
+                    <div class="card padding-card t-align-l no-radius border">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4">房屋信息</h5>
+                            <div class="form-group">
+                                <label>房产名称 <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" placeholder="" name="esname" value="{{.estate.Estatename}}">
+
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>类型1 <span class="text-danger">*</span></label>
+                                    <input name="type1" type="text" class="form-control" placeholder="" value="{{.estate.Type1}}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>类型2 <span class="text-danger">*</span></label>
+                                    <input name="type2" type="text" class="form-control" placeholder="" value="{{.estate.Type2}}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>开工年份 <span class="text-danger">*</span></label>
+                                    <input name="time1" type="text" class="form-control" placeholder="输入年份" value="{{.estate.Btime}}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>竣工年份 <span class="text-danger">*</span></label>
+                                    <input name="time2" type="text" class="form-control" placeholder="输入年份" value="{{.estate.Etime}}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>房产商 <span class="text-danger">*</span></label>
+                                <input name="estateagent" type="text" class="form-control" placeholder="" value="{{.estate.Estateagent}}">
+                            </div>
+
+
+                            <div id="quyu" class="row">
+                                <div class="form-group col-md-4">
+                                    <label>区域 <span class="text-danger">*</span></label>
+                                    <input name="area" type="text" class="form-control" placeholder="" value="{{.estate.Area}}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>街道 <span class="text-danger">*</span></label>
+                                    <input name="street" type="text" class="form-control" placeholder="" value="{{.estate.Street}}">
+                                </div>
+                            </div>
+                            <input type="hidden" name="esno" value="{{.estate.Estateno}}">
+                            <div class="form-group">
+                                <label>详细地址 <span class="text-danger">*</span></label>
+                                <textarea class="form-control" rows="2" name="address" >{{.estate.Address}}</textarea>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>小区名称 <span class="text-danger">*</span></label>
+                                    <input name="communityname" type="text" class="form-control" value="{{.estate.Communityname}}" placeholder="Enter Rent Price">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>幢号房间号<span class="text-danger">*</span></label>
+                                    <input name="roomno" type="text" class="form-control" value="{{.estate.Roomno}}" placeholder="Enter Price Label">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>朝向 <span class="text-danger">*</span></label>
+                                    <input name="toward" type="text" class="form-control" placeholder="" value="{{.estate.Toward}}">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>总层数 <span class="text-danger">*</span></label>
+                                    <input name="layer" type="text" class="form-control" value="{{.estate.Layer}}" placeholder="输入该小区每幢楼的总层数">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label>面积 <span class="text-danger">*</span></label>
+                                    <input name="mianji" type="text" class="form-control"  value="{{.estate.Mianji}}" placeholder="输入  平方米">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>均价 <span class="text-danger">*</span></label>
+                                    <input name="price" type="text" class="form-control"  value="{{.estate.Price}}" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>具体户型描述 <span class="text-danger">*</span></label>
+                                <textarea name="describe" class="form-control" rows="4">{{.estate.Describes}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card padding-card t-align-l no-radius border">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">更新</button>
+            <a href="/jump3admin"><button class="btn btn-primary btn-lg">返回</button></a>
+        </div>
+        </div>
+    </form>
+</section>
+
+<script>
+    var quyu = new Vue({
+        el:"#quyu",
+        data:{
+            area:'鄞州',
+            shuju:['鄞州','海曙','北仑区','江北','镇海','奉化'],
+            jiedao1:['下应街道','中河街道','东胜街道','明楼街道','潘火街道','百丈街道'],
+            jiedao2:['南门街道','西门街道','江厦街道','月湖街道','鼓楼街道'],
+            jiedao3:['北仑周边','柴桥','大碶','大榭','横河路','庐山路','戚家山','小港','霞浦'],
+            jiedao4:['孔浦街道','白沙街道','甬江街道','庄桥街道','中马街道'],
+            jiedao5:['蛟川街道','招宝山街道','庄市街道'],
+            jiedao6:['江口街道','锦屏街道','岳林街道']
+        }
+    })
+    var image = new Vue({
+        el:"#image",
+        data:{
+            image_url:''
+        }
+    })
+    var image123 = new Vue({
+        el:"#image123",
+        data:{
+            image_url1:'',
+            image_url2:'',
+            image_url3:''
+        }
+    })
+</script>
+
+</body>
+
+</html>

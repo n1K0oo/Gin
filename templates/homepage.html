@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<!--顶层-->
+<div style="width: 100%;height: 80pt;background-color: white">
+    <img src="statics/images/logo.png"style="margin-left: 120pt;margin-top: 0pt">
+    <div style="margin-left: 800px;margin-top: -30px;"><span style="color: rgb(170,170,170);font-size: 15px"></span></div>
+</div>
+<!--中间绿色分隔栏-->
+<div style="width: 1536px;height:56px;background-color: rgb(98,171,0);margin-left: -6pt">
+    <div style="margin-left: 1107px">
+        {{if eq .admin nil}}
+        <div style="padding-top: 25px;" if="${nowlog eq null}">
+            <img src="statics/images/user2.png">&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/login" style="color: white">登录</a>
+        </div>
+        {{else}}
+        <div style="padding-top: 25px;" if="${nowlog ne null}">
+            <img src="statics/images/user2.png">&nbsp;&nbsp;&nbsp;&nbsp;
+            <span text="欢迎回来">{{.admin}}</span>
+            <a href="/exitlogin" style="color: white">退出</a>
+        </div>
+        {{end}}
+    </div>
+    <div style="margin-top: -40px;margin-left: 170px;"><span style="font-size: 20px;color: white">首页
+    &nbsp&nbsp&nbsp&nbsp&nbsp新房&nbsp&nbsp&nbsp&nbsp&nbsp二手房&nbsp&nbsp&nbsp&nbsp&nbsp租房&nbsp&nbsp&nbsp&nbsp&nbsp商铺写字楼&nbsp&nbsp&nbsp&nbsp&nbsp海外地产
+        &nbsp&nbsp&nbsp&nbsp&nbsp装修&nbsp&nbsp&nbsp&nbsp&nbsp楼讯&nbsp&nbsp&nbsp&nbsp&nbsp房产研究院&nbsp&nbsp&nbsp&nbsp&nbsp房价
+    </span> </div>
+
+</div>
+<!--功能行width100%高300px-->
+<div style="height: 300px;width: 100%;margin-top: 5px;">
+<!--    功能栏-->
+    <div id="function_bar"style="width: 868px;height: 285px;background-color: white;margin-left:166px;border:1px solid #000;">
+<!--        功能左边栏-->
+        <div style="width: 140px;height: 100%;background-color:rgb(247,247,247);">
+            <br><br>
+            <p style="cursor: pointer;font-size: 25px;margin-left: 40px;"@click="buybar_show">买房</p>
+            <br><br>
+            <p style="cursor: pointer;font-size: 25px;margin-left: 40px;"@click="rent_show">租房</p>
+        </div>
+<!--        功能栏右边1-->
+        <div v-show="buybar_seen" style="width:728px;height: 100%;margin-left:140px;margin-top:-285px;background-color:white">
+            <br>
+            <form method="post" action="/search">
+                <input type="hidden" value="2" name="flag2">
+                <input type="hidden" value="1" name="status">
+            <div style="width: 664px;height:54px;background-color: rgb(236,236,236);border-radius:10px;margin-left:35px">
+                    <input v-model="question1" name="search" type="text"placeholder="请输入小区名称、地址..." style="width: 390px;height: 35px;border-radius:10px;margin-top: 7px;margin-left: 20px;font-size: 20px">
+                    <button style="cursor: pointer;font-size: 25px;background-color: rgb(255,145,27);color: white;border: 0px;border-radius:10px;padding-bottom: 10px;padding-right: 20px;padding-left:20px;margin-left: 10px" type="submit">搜索一下</button>
+            </div>
+            </form>
+        </div>
+<!--        功能栏右边2-->
+        <div v-show="rent_seen" style="width:728px;height: 100%;margin-left:140px;margin-top:-285px;background-color: #ffffff">
+            <br>
+            <form method="post" action="/search">
+                <input type="hidden" value="1" name="flag2">
+                <input type="hidden" value="1" name="status">
+            <div style="width: 664px;height:54px;background-color: rgb(236,236,236);border-radius:10px;margin-left:35px">
+                <input v-model="question2" name="search" type="text"placeholder="请输入地址、小区、楼盘名..." style="width: 390px;height: 35px;border-radius:10px;margin-top: 7px;margin-left: 20px;font-size: 20px">
+                <button  style="cursor: pointer;font-size: 25px;background-color: rgb(255,145,27);color: white;border: 0px;border-radius:10px;padding-bottom: 10px;padding-right: 20px;padding-left:20px;margin-left: 10px">租房</button>
+            </div>
+            </form>
+        </div>
+    </div>
+<!--    右边广告和出租按钮出售按钮-->
+    <div style="height: 282px;width:350px;margin-left:1090px;margin-top:-283px">
+        <img src="statics/images/广告.png">
+        <br>
+        <a href="/sell">
+        <button style="cursor: pointer;font-size: 25px;color: white;background-color:rgb(97,171,2);border: 0px;border-radius:5px;padding-bottom: 10px;padding-right: 80px;padding-left:80px;">
+            我是卖家
+        </button>
+        </a>
+    </div>
+</div>
+<script>
+    var function_bar = new Vue({
+        el:"#function_bar",
+        data:{
+            question1:'',
+            question2:'',
+            buybar_seen:true,
+            rent_seen:false
+        },
+        methods:{
+            buybar_show:function (){
+                this.buybar_seen=true;
+                this.rent_seen=false;
+            },
+            rent_show:function (){
+                this.buybar_seen=false;
+                this.rent_seen=true;
+            },
+            search_buy:function(){
+                if(this.question1.length==0){
+                    alert("请输入内容")
+                }
+                else{
+                    alert(this.question1)
+                    this.question1=''
+                }
+            },
+            search_rent:function(){
+                if(this.question2.length==0){
+                    alert("请输入内容")
+                }
+                else{
+                    alert(this.question2)
+                    this.question2=''
+                }
+            }
+
+        }
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,572 @@
+div{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font:inherit;
+    vertical-align: baseline;
+}
+.props-main{
+    width: 1170px;
+    padding-top: 10px;
+}
+.banner-left{
+    display: inline-block;
+}
+.banner-logo{
+    display: inline-block;
+    width: 113px;
+    height: 37px;
+    background: url("/static/images/logo.png") no-repeat 0 0/113px 40px;
+}
+
+.banner-seperate{
+    display: inline-block;
+    width: 1px;
+    height: 21px;
+    background: black;
+    margin: 0 12px;
+    vertical-align: -1px;
+}
+.banner-name{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+    line-height: 24px;
+    vertical-align: 1px;
+}
+a{
+    text-decoration: none;
+}
+.vice-title{
+    margin-top: 16px;
+}
+.crumbs{
+    font-size: 12px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 400;
+    color: #979b9e;
+    line-height: 12px;
+}
+.anchor{
+    cursor: text;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-decoration: none;
+}
+.banner-title{
+    margin-top: 32px;
+    position: relative;
+}
+.title{
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: black;
+    line-height: 1.1;
+    max-width: 1090px;
+    margin-left: 200px;
+}
+.titile-code{
+    top:18px;
+    font-family: sans-serif;
+    line-height: 1.1;
+    right: 0;
+    position: absolute;
+    font-size: 12px;
+    color:#979b9e;
+}
+.house-body{
+    zoom:1;
+}
+.gallery-count{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    width: 44px;
+    height: 28px;
+    position: absolute;
+    background: #6a8f75;
+    border-radius: 1px;
+    color: white;
+    line-height: 28px;
+    font-size: 14px;
+    text-align: center;
+    left: 16px;
+    bottom: 16px;
+}
+.gallery-deimage{
+    max-width: 100%;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.gallery-image{
+    position: relative;
+    width: 670px !important;
+    height: 480px;
+
+}
+.slick-slide{
+    float: left;
+    min-height: 1px;
+}
+.slick-current{
+    display: block;
+}
+.slick-track{
+    position: relative;
+    top:0;
+    left:0;
+    display:block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.slick-list{
+    position: relative;
+    display: block;
+}
+.gallery-pre{
+    width: 670px;
+    height: 480px;
+    overflow: hidden;
+}
+.slick-list{
+    transform: translateZ(0);
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    display: block;
+    position: relative;
+}
+.slick-slider{
+    box-sizing: border-box;
+    user-select: none;
+    touch-action:pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+.gallery-pre-image{
+    position: relative;
+}
+section{
+    display: block;
+}
+.housebody-left{
+    float: left;
+    width: 0px;
+    margin-left: 0px;
+}
+.slick-track:before{
+    display: table;
+    content: "";
+}
+.slick-track:after{
+    clear: both;
+    display: table;
+    content:"";
+}
+.gallery-indicator{
+    margin-top: 8px;
+    font-size: 0;
+}
+.gallery-indicator-left{
+    margin-right: 8px;
+}
+.gallery-indicator-right{
+    margin-left: 8px;
+}
+.gallery-indicator-left,.gallery-indicator-right{
+    position: relative;
+    font-size:0;
+    display: inline-block;
+    width: 31px;
+    height: 70px;
+    background: #919191d3;
+}
+.gallery-indicator-image-item .gallery-indicator-image-item-wrap-active{
+    left: -2px;
+}
+.gallery-indicator-image-item{
+    display: block;
+    position: absolute;
+    width: 112px;
+    border:0;
+    top:50%;
+    transform:translateY(-50%);
+}
+.gallery-indicator-image-item-wrap-active{
+    border:2px solid #66696b;
+}
+.gallery-indicator-image-item-wrap .slick-list{
+    height: 70px;
+}
+.gallery-indicator-image-wrap{
+    display: inline-block;
+    width: 592px;
+    height: 70px;
+}
+.gallery-indicator-image-item-wrap{
+    box-sizing: border-box;
+    position: relative;
+    width:112px;
+    height: 70px;
+    overflow: hidden;
+}
+.gallery-indicator-image{
+    display: inline-block;
+    position: relative;
+    width: 112px;
+    height: 70px;
+    outline: none;
+}
+.gallery-indicator-left i{
+    background: url(./右箭头.png) no-repeat 0 0/10px 17px;
+    transform: translate(-50%,-50%) rotate(180deg);
+}
+.gallery-indicator-right i{
+    background: url(./左箭头.png) no-repeat 0 0/10px 17px;
+    transform: translate(-50%,-50%) rotate(180deg);}
+.gallery-indicator-left i,.gallery-indicator-right i{
+    display: inline-block;
+    width: 10px;
+    height: 17px;
+    position: absolute;
+    top:50%;
+    left:50%;
+}
+
+
+.maininfo-title-tag-name{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: black;
+}
+.maininfo-title-tag-icon{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: url("./对勾小.png") no-repeat 0 0/10px 10px;
+    margin-right: 4px;
+}
+.maininfo-title-tag{
+    display: inline-block;
+    margin-left: 16px;
+    height: 44px;
+}
+.maininfo-title-image{
+    margin-left: 8px;
+    position: relative;
+    top:50%;
+    transform:translateY(-50%);
+}
+.maininfo-title-image-premierhouse{
+    width: 48px;
+    height: 28px;
+
+}
+.maininfo-title-premierhouse{
+    background: #fbf7f1;
+}
+.maininfo-title{
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+}
+.hover{
+    background: white;
+    position: relative;
+}
+.maininfo{
+    margin-left: 500px;
+    background: #fff;
+    width: 100%;
+    font-size: 0;
+}
+.housebody-right{
+    margin-top: 0px;
+    margin-left: 100px;
+    width:440px;
+}
+.maininfo-avgprive-tax{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top:8px;
+    font-size: 12px;
+    color: blue;
+    line-height: 1.1;
+}
+.maininfo-avgprice-price{
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    margin-top:4px;
+    font-size: 16px;
+    font-weight: 500;
+    color:black;
+    line-height: 1.1;
+}
+.maininfo-avgprice{
+    display: inline-block;
+}
+.maininfo-price-unit {
+    font-family: PingFangSC-Regular,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    font-size: 24px;
+    color: #ff604f;
+    line-height: 1.1;
+}
+.maininfo-price-num {
+    font-size: 48px;
+    font-family: Avenir-Black,Avenir;
+    font-weight: 900;
+    color:#ff604f;
+    line-height: 1.1;
+    margin-right: 5px;
+    vertical-align: -4px;
+}
+.maininfo-price-wrap {
+    position: relative;
+    float: left;
+    margin-right: 20px;
+    z-index: 1;
+}
+.maininfo-price {
+    position: relative;
+    box-sizing: border-box;
+    height: 83px;
+    padding-top: 17px;
+    display: inline-block;
+    width: 100%;
+}
+.maininfo-model :after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #e7ebee;
+    transform: scaleY(.5);
+}
+
+.maininfo-model-weak {
+    font-family: PingFangSC-Regular,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    width: 100%;
+    font-size: 14px;
+    color: #474b4e;
+    line-height: 1.1;
+    margin-top: 10px;
+}
+
+.maininfo-model-strong-text, .maininfo-model-strong-unit {
+    font-family: PingFangSC-Medium,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    font-weight: 500;
+    color: #0b0f12;
+}
+.maininfo-model-item-3 {
+    max-width: 161px;
+}
+.maininfo-model-item {
+    display: inline-block;
+}
+
+.maininfo-model-strong-unit {
+    font-size: 16px;
+    line-height: 22px;
+    vertical-align: 2px;
+    margin-right: 1px;
+}
+
+.maininfo-model-item-2 {
+    width: 126px;
+}
+.maininfo-model-item-1 {
+    width: 153px;
+}
+.maininfo-model {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    height: 90px;
+    padding-top: 20px;
+}
+.maininfo-model-strong-num {
+    font-size: 24px;
+    font-family: Avenir-Heavy,Avenir;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #0b0f12;
+    margin-right: 1px;
+}
+.maininfo-model-strong-text {
+    font-size: 21px;
+    line-height: 24px;
+}
+.anchor-weak {
+    cursor: text;
+    color: #474b4e;
+}
+
+.anchor {
+    font-family: PingFangSC-Regular,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    text-decoration: none;
+}
+.maininfo-community-item-name {
+    color: #0b0f12;
+}
+
+.maininfo-community-item-label, .maininfo-community-item-name {
+    font-family: PingFangSC-Regular,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    font-size: 14px;
+    line-height: 1.1;
+}
+
+.maininfo-community-item-label{
+    margin-right: 20px;
+}
+
+
+.maininfo-community-item{
+    margin-top: 20px;
+}
+.anchor-strong {
+    cursor: text;
+    color: #0e3bbd;
+}
+.maininfo-meta{
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    width: 100%;
+    padding-top: 20px;
+    height: 133px;
+}
+.maininfo-meta:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #e7ebee;
+    transform: scaleY(.5);
+}
+.maininfo-community-item-label {
+    color: #979b9e;
+    margin-right: 20px;
+}
+
+.maininfo-broker-info-company {
+    margin-top: 12px;
+
+}
+.maininfo-broker-info-name, .maininfo-broker-info-score {
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.maininfo-broker-info-name {
+    font-family: PingFangSC-Medium,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #0b0f12;
+    margin-left: 75px;
+}
+
+.maininfo-broker-info {
+    font-size: 0;
+    display: inline-block;
+    margin-top: 14px;
+}
+.maininfo-broker {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-height: 127px;
+    padding: 13px 0 30px;
+    box-sizing: border-box;
+}
+.maininfo-broker:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background-color: #e7ebee;
+    transform: scaleY(.5);
+}
+.maininfo-broker-info-score-num {
+    display: inline-block;
+    font-family: Avenir-Medium,Avenir;
+    font-weight: 500;
+    color: #0b0f12;
+    font-size: 16px;
+}
+.maininfo-broker-info-score-text {
+    font-family: PingFangSC-Regular,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    display: inline-block;
+    font-size: 12px;
+    color: #0b0f12;
+    vertical-align: 1px;
+}
+.maininfo-broker-info-company-charges{
+    background: #118638 none repeat scroll 0 0;
+    color: #fff;
+    border-color:green;
+    border-radius: 35px;
+     font-size: 13px;
+     font-weight: bold;
+     padding: 14px 20px;
+}
+.maininfo-broker-info-namer {
+    position: absolute;
+    width: 80px;
+    height: 30px;
+    display: inline-block;
+    font-family: PingFangSC-Medium,PingFang SC,Microsoft YaHei,Arial,"\5B8B\4F53",Helvetica,sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    color: #0b0f12;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.maininfo-community-item-adress{
+    margin-left: 15px;
+    height: 30px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0b0f12;
+}
+
+.props-main {
+    width: 1170px;
+    margin: 0 auto;
+}
+
+.nav-channel-wrap {
+    position: relative;
+    z-index: 11;
+    min-width: 1170px;
+    background: #f3f5fb;
+}
+.nav-channel{
+    margin-left:160px;
+    width: 1170px;
+    height: 36px;
+    padding-top: 6px;
+}
+div{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+body{
+    display: block;
+    margin-top: 0;
+}

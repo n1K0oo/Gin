@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后台</title>
+<link rel="stylesheet" href="statics/assets/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+<link rel="stylesheet" href="statics/assets/chartist/css/chartist.min.css">
+<link rel="stylesheet" href="statics/assets/css/bootstrap.min.css">
+<link rel="stylesheet" href="statics/assets/css/style.css">
+<link rel="stylesheet" href="statics/assets/css/responsive.css">
+<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+	<style>
+		a{
+			text-decoration: none;
+		}
+	</style>
+</head>
+
+<body>
+
+<!-- wrapper -->
+<div id="wrapper">
+<!-- navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="brand">
+		<a href="index.html" style="padding-right:31px;">
+			后 台<span>&nbsp;&nbsp;管 理</span>
+		</a>
+	</div><!--/.brand -->
+
+
+	<p style="text-align: right"><br>欢迎回来，{{.admin}}
+		<a href="/exitlogin">退出</a>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+</nav><!--/nav -->
+<!-- END NAVBAR -->
+
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-nav" class="sidebar">
+	<div class="sidebar-scroll">
+		<nav>
+			<ul class="nav">
+				{{if le .tag 3}}
+				{{if eq .tag 1}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump1admin">
+						<i data-feather="package"></i> <span>添加中介</span>
+					</a>
+				</li>
+				{{if eq .tag 2}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump2admin">
+						<i data-feather="package"></i> <span>查看中介</span>
+					</a>
+				</li>
+				{{if eq .tag 3}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump3admin">
+						<i data-feather="home"></i> <span>管理房产</span>
+					</a>
+				</li>
+
+				{{else}}
+				{{if eq .tag 4}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump4mid">
+						<i data-feather="package"></i> <span>区域房源</span>
+					</a>
+				</li>
+				{{if eq .tag 5}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump5mid">
+						<i data-feather="package"></i> <span>上架审核</span>
+					</a>
+				</li>
+				{{if eq .tag 6}}
+				<li class="active">
+					{{else}}
+				<li>
+					{{end}}
+					<a href="/jump6mid">
+						<i data-feather="home"></i> <span>交易审核</span>
+					</a>
+				</li>
+				{{end}}
+			</ul>
+		</nav>
+	</div>
+</div>
+<!-- END LEFT SIDEBAR -->
+
+<!-- MAIN -->
+<div class="main">
+
+	<!-- MAIN CONTENT -->
+	<div class="main-content">
+		<div class="container-fluid">
+            <br>
+			{{if eq .tag 1}}
+			<div class="row">
+				<form action="/j1adminInsert" method="post">
+					<div class="col-sm-8" id="bottom_part2">
+						<div style="background-color: white;width: 850pt;height: 450pt;margin-left: 30pt;overflow:auto;">
+							<br><br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">用户名&nbsp&nbsp&nbsp&nbsp&nbsp<input name="username" style="width:150pt;font-size: 20pt" ></p> </div>
+							<br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">密码&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input name="password" style="width:150pt;font-size: 20pt" ></p></div>
+							<br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">真实姓名&nbsp<input name="name" style="width:150pt;font-size: 20pt" ></p></div>
+							<br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">电话号码&nbsp<input name="tel" style="width:150pt;font-size: 20pt" ></p></div>
+							<br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">区域&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<select name="area" style="width: 80pt;font-size: 20pt" v-model="where">
+									<option v-for="(x,index) in shuju" :value="x">${x}</option>
+								</select>
+							</p></div>
+							<br><br>
+							<div style="margin-left: 30pt;"><p style="font-size: 20pt;">街道&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+								<select name="street" style="width: 100pt;font-size: 20pt" v-if="where === '鄞州区'">
+									<option  v-for="x in jiedao1" :value="x">${x}</option>
+								</select>
+								<select style="width: 100pt;font-size: 20pt" v-else-if="where === '海曙区'" name="street">
+									<option  v-for="x in jiedao2" :value="x">${x}</option>
+								</select>
+								<select style="width: 100pt;font-size: 20pt" v-else-if="where === '北仑区'" name="street">
+									<option  v-for="x in jiedao3" :value="x">${x}</option>
+								</select>
+								<select style="width: 100pt;font-size: 20pt" v-else-if="where === '江北区'" name="street">
+									<option  v-for="x in jiedao4" :value="x">${x}</option>
+								</select>
+								<select style="width: 100pt;font-size: 20pt" v-else-if="where === '镇海区'" name="street">
+									<option  v-for="x in jiedao5" :value="x">${x}</option>
+								</select>
+								<select style="width: 100pt;font-size: 20pt" v-else-if="where === '奉化区'" name="street">
+									<option  v-for="x in jiedao6" :value="x">${x}</option>
+								</select>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<input type="submit" value="添加" style="font-size: 20pt">
+							</p></div>
+						</div>
+					</div><!--/.col-->
+				</form>
+			</div><!--/.row-->
+			{{end}}
+
+			{{if eq .tag 2}}
+			<!--功能2-->
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="box">
+						<div class="box-head">
+							<h2>中介信息</h2>
+						</div><!--/.box-head-->
+						<div class="item">
+							<div class="item-responsive ">
+								<table class="table">
+									<thead>
+									<tr>
+										<th>用户名</th>
+										<th>所属区</th>
+										<th>所属街道</th>
+										<th>电话</th>
+										<th>姓名</th>
+										<th>操作</th>
+									</tr>
+									</thead><!--/thead-->
+									<tbody>
+									{{range .users}}
+									<tr>
+										<td >{{.Username}}</td>
+										<td >{{.Area}}</td>
+										<td >{{.Street}}</td>
+										<td >{{.Tel}}</td>
+										<td >{{.Name}}</td>
+										<td>
+											<a href="/delmid?username={{.Username}}">
+											<span class="item-status cancel">删除</span></a>
+										</td>
+									</tr>
+									{{end}}
+									</tbody><!--/tbody-->
+								</table><!--/.table-->
+							</div><!--/.table-responsive-->
+						</div><!--/.item-->
+					</div><!--/.box-->
+				</div><!--/.col-->
+			</div><!--/.row-->
+			{{end}}
+
+			{{if eq .tag 3}}
+			<!--功能3-->
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="box">
+						<div class="box-head">
+							<h2>房产信息</h2>
+						</div><!--/.box-head-->
+						<div class="item">
+							<div class="item-responsive ">
+								<table class="table">
+									<thead>
+									<tr>
+										<th>房产唯一编号</th>
+										<th>房产名</th>
+										<th>详细地址</th>
+										<th>区域</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+									</thead><!--/thead-->
+									<tbody>
+									{{range .estates}}
+									<tr>
+										<td >{{.Estateno}}</td>
+										<td >{{.Estatename}}</td>
+										<td >{{.Address}}</td>
+										<td >{{.Area}}</td>
+										{{if eq .Flag 0}}
+										<td >上架审核</td>
+										{{else if eq .Flag 1}}
+										<td >上架</td>
+										{{else if eq .Flag 2}}
+										<td >被交易待审核</td>
+										{{else}}
+										<td >已完成</td>
+										{{end}}
+										<td>
+											<a href="/estateupdate?esno={{.Estateno}}">修改</a>
+											<a href="/estatedel?esno={{.Estateno}}">删除</a>
+										</td>
+									</tr>
+									{{end}}
+									</tbody><!--/tbody-->
+								</table><!--/.table-->
+							</div><!--/.table-responsive-->
+						</div><!--/.item-->
+					</div><!--/.box-->
+				</div><!--/.col-->
+			</div>
+			{{end}}
+
+			{{if eq .tag 4}}
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="box">
+						<div class="box-head">
+							<h2>房源信息</h2>
+						</div><!--/.box-head-->
+						<div class="item">
+							<div class="item-responsive ">
+								<table class="table">
+									<thead>
+									<tr>
+										<th>房产唯一编号</th>
+										<th>房产名</th>
+										<th>详细地址</th>
+										<th>所属用户</th>
+										<th>出租/售卖</th>
+										<th>状态</th>
+									</tr>
+									</thead><!--/thead-->
+									<tbody>
+									{{range .estates}}
+									<tr>
+										<td >{{.Estateno}}</td>
+										<td >{{.Estatename}}</td>
+										<td >{{.Address}}</td>
+										<td >{{.Username}}</td>
+										{{if eq .Flag2 1}}
+										<td >出租</td>
+										{{else}}
+										<td >售卖</td>
+										{{end}}
+										{{if eq .Flag 0}}
+										<td >上架审核</td>
+										{{else if eq .Flag 1}}
+										<td >上架</td>
+										{{else if eq .Flag 2}}
+										<td >被交易待审核</td>
+										{{else}}
+										<td >已完成</td>
+										{{end}}
+									</tr>
+									{{end}}
+									</tbody><!--/tbody-->
+								</table><!--/.table-->
+							</div><!--/.table-responsive-->
+						</div><!--/.item-->
+					</div><!--/.box-->
+				</div><!--/.col-->
+			</div><!--/.row-->
+			{{end}}
+
+			{{if ge .tag 5}}
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="box">
+						<div class="box-head">
+							{{if eq .tag 5}}
+							<h2>上架审核</h2>
+							{{else}}
+							<h2>交易审核</h2>
+							{{end}}
+						</div><!--/.box-head-->
+						<div class="item">
+							<div class="item-responsive ">
+								<table class="table">
+									{{if eq .tag 5}}
+									<thead>
+									<tr>
+										<th>房产唯一编号</th>
+										<th>房产名</th>
+										<th>详细地址</th>
+										<th>卖家</th>
+										<th>状态</th>
+										<th>操作</th>
+									</tr>
+									</thead><!--/thead-->
+									<tbody>
+									{{range .estates}}
+									<tr>
+										<td >{{.Estateno}}</td>
+										<td >{{.Estatename}}</td>
+										<td >{{.Address}}</td>
+										<td >{{.Username}}</td>
+										{{if eq .Flag2 1}}
+										<td >出租</td>
+										{{else}}
+										<td >售卖</td>
+										{{end}}
+										<td>
+											<a href="">拒绝
+												&nbsp;&nbsp;&nbsp;
+												<a href="/approvalmid?esnum={{.Estateno}}&tag=5">同意</a>
+										</td>
+									</tr>
+									{{end}}
+									{{else}}
+									<thead>
+									<tr>
+										<th>房产唯一编号</th>
+										<th>房产名</th>
+										<th>详细地址</th>
+										<th>卖家</th>
+										<th>买家</th>
+										<th>操作</th>
+									</tr>
+									</thead><!--/thead-->
+									<tbody>
+									{{range .estates}}
+									<tr>
+										<td >{{.Estateno}}</td>
+										<td >{{.Estatename}}</td>
+										<td >{{.Address}}</td>
+										<td >{{.Username}}</td>
+										<td >{{.Buyer}}</td>
+										<td>
+											<a href="">拒绝
+												&nbsp;&nbsp;&nbsp;
+												<a href="/approvalmid?esnum={{.Estateno}}&tag=6">同意</a>
+										</td>
+									</tr>
+									{{end}}
+									{{end}}
+									</tbody><!--/tbody-->
+								</table><!--/.table-->
+							</div><!--/.table-responsive-->
+						</div><!--/.item-->
+					</div><!--/.box-->
+				</div><!--/.col-->
+			</div><!--/.row-->
+			{{end}}
+
+		</div><!--/.container-fluid-->
+	</div><!--/.main-content-->
+</div>
+<!-- END MAIN -->
+
+<script>
+	var bottom_part2 = new Vue({
+		el:"#bottom_part2",
+		data:{
+			where:'鄞州',
+			seen:false,
+			shuju:['鄞州区','海曙区','北仑区','江北区','镇海区','奉化区'],
+			jiedao1:['下应街道','中河街道','东胜街道','明楼街道','潘火街道','百丈街道'],
+			jiedao2:['南门街道','西门街道','江厦街道','月湖街道','鼓楼街道'],
+			jiedao3:['北仑周边','柴桥','大碶','大榭','横河路','庐山路','戚家山','小港','霞浦'],
+			jiedao4:['孔浦街道','白沙街道','甬江街道','庄桥街道','中马街道'],
+			jiedao5:['蛟川街道','招宝山街道','庄市街道'],
+			jiedao6:['江口街道','锦屏街道','岳林街道']
+		},
+		delimiters:['${','}'],
+		methods: {
+		},
+	})
+</script>
+
+<div class="clearfix"></div>
+</div>
+<!-- END WRAPPER -->
+
+<!--jquery-1.12.4.min.js-->
+<script  src="statics/assets/js/jquery.min.js"></script>
+<!--chartist.min.js-->
+<script src="statics/assets/chartist/js/chartist.min.js"></script>
+<script src="statics/assets/chartist/js/chartist-tooltip-plugin.js"></script>
+<script src="statics/assets/chartist/js/chartist-custom.js"></script>
+<!--bootstrap.min.js-->
+<script src="statics/assets/js/bootstrap.min.js"></script>
+<!--jquery.slimscroll.min.js-->
+<script src="statics/assets/js/jquery.slimscroll.min.js"></script>
+<!--feather.min.js-->
+<script src="statics/assets/js/feather.min.js"></script>
+<!-- DataMaps Plugin Js -->
+<script src="statics/assets/js/d3.min.js"></script>
+<script src="statics/assets/js/topojson.js"></script>
+<script src="statics/assets/js/datamaps.world.min.js"></script>
+<!--fontawesome-all.min.js-->
+<script src="statics/assets/js/fontawesome-all.min.js"></script>
+<!--Custom JS-->
+<script src="statics/assets/js/custom.js"></script>
+</body>
+</html>

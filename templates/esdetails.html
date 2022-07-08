@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>详细</title>
+    <link rel="stylesheet" href="statics/css/specific.css">
+</head>
+<body>
+    <div>
+        <div class="nav-channel-wrap">
+            <div class="nav-channel">
+                <span style="font-size: 15px;">宁波&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/homepage" style="color: black">首页</a>&nbsp&nbsp&nbsp&nbsp&nbsp新房&nbsp&nbsp&nbsp&nbsp&nbsp二手房
+        &nbsp&nbsp&nbsp&nbsp&nbsp租房&nbsp&nbsp&nbsp&nbsp&nbsp商铺写字楼&nbsp&nbsp&nbsp&nbsp&nbsp海外地产&nbsp&nbsp&nbsp&nbsp&nbsp装修&nbsp&nbsp&nbsp&nbsp&nbsp
+            楼讯&nbsp&nbsp&nbsp&nbsp&nbsp房产研究院&nbsp&nbsp&nbsp&nbsp&nbsp房价&nbsp&nbsp&nbsp&nbsp&nbsp问答&nbsp&nbsp&nbsp&nbsp&nbsp
+                {{if eq .admin nil}}
+                <span><a href="/login">登录</a></span>
+                {{else}}
+                <span text="欢迎回来">{{.admin}}</span>&nbsp;<a href="/exitlogin">退出</a>
+                {{end}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="props-main">
+        <div class="banner-left">
+            <div>
+                <a href="主页面的html" class="banner-logo"></a>
+            </div>
+        </div>
+        <div class="vice-title">
+            <div class="crumbs">
+                <a href="" target="_blank" class="anchor"
+                    style="color: #979B9E;font-size: 12px;line-height: 1.1;">宁波房产网</a>
+
+            </div>
+        </div>
+        <div class="banner-title">
+<!--            房产名-->
+            <h1 class="title" >{{.estate.Estatename}}</h1>
+        </div>
+    </div>
+
+    <div class="housebody-right">
+        <div class="maininfo">
+            {{if eq .estate.Flag2 1}}
+            <div class="maininfo-price">
+                <div class="maininfo-price-wrap">
+                    <!--                            总价-->
+                    <span class="maininfo-price-num" >{{.estate.Price}}</span>
+                    <span class="maininfo-price-unit">元/月</span>
+                </div>
+                <div class="maininfo-avgprice">
+                    <!--                            均价-->
+                    <div class="maininfo-avgprice-price"></div>
+                    <div class="hover">
+                        <div class="maininfo-avgprive-tax">税费等详情请咨询经纪人</div>
+                    </div>
+                </div>
+            </div>
+            {{else}}
+            <div class="maininfo-price">
+                <div class="maininfo-price-wrap">
+                    <!--                            总价-->
+                    <span class="maininfo-price-num" >{{.estate.Allprice}}</span>
+                    <span class="maininfo-price-unit">万</span>
+                </div>
+                <div class="maininfo-avgprice">
+                    <!--                            均价-->
+                    <div class="maininfo-avgprice-price" >{{.estate.Price}}元/平方</div>
+                    <div class="hover">
+                        <div class="maininfo-avgprive-tax">税费等详情请咨询经纪人</div>
+                    </div>
+                </div>
+            </div>
+            {{end}}
+            <div class="maininfo-model">
+                <div class="maininfo-model-item maininfo-model-item-1">
+                    <div class="maininfo-model-strong">
+                        <!--                                户型描述-->
+                        <span class="maininfo-model-strong-num" >{{.estate.Describes}}</span>
+                    </div>
+                    <!--                            楼层-->
+                    <span class="maininfo-model-weak" >{{.estate.Layer}}</span>
+                </div>
+                <div class="maininfo-model-item maininfo-model-item-2">
+                    <div class="maininfo-model-strong">
+                        <!--                                面积-->
+                        <i class="maininfo-model-strong-num" >{{.estate.Mianji}}</i>
+                        <span class="maininfo-model-strong-unit">平方</span>
+                    </div>
+                    <!--                            房产商-->
+                    <span class="maininfo-model-weak" text="${estate.getEstatename()}">{{.estate.Estateagent}}</span>
+                </div>
+                <div class="maininfo-model-item maininfo-model-item-3">
+                    <div class="maininfo-model-strong">
+                        <!--                                朝向-->
+                        <i class="maininfo-model-strong-text" >{{.estate.Toward}}</i>
+                    </div>
+                    <span class="maininfo-model-weak">竣工年份<span >{{.estate.Etime}}</span></span>
+
+                </div>
+            </div>
+            <div class="maininfo-meta">
+                <div class="maininfo-community">
+                    <div class="maininfo-community-item">
+                        <span class="maininfo-community-item-label">所属小区</span>
+                        <!--                                小区名-->
+                        <span class="anchor anchor-weak" style="display:inline-block;font-size:14px;font-weight:500;">{{.estate.Communityname}}</span>
+                    </div>
+                    <div class="maininfo-community-item">
+                        <span class="maininfo-community-item-label">所属区域</span>
+                        <span class="maininfo-community-item-name">
+<!--                                    所属区-->
+                                    <a class="ancher ancher-weak" style="display: inline-block;" >{{.estate.Area}}</a>
+                            <!--                                    &nbsp;所属街道-->
+                                    <a class="ancher ancher-weak" style="display: inline-block;" >{{.estate.Street}}</a>
+                                </span>
+                    </div>
+                </div>
+            </div>
+            <div class="maininfo-broker">
+                <div class="maininfo-broker-info-company">
+                    {{if eq .estate.Flag2 2}}
+                    <a href="/buyorrent?esno={{.estate.Estateno}}">
+                    <button class="maininfo-broker-info-company-charges">
+                        我要租房
+                    </button>
+                    </a>
+                    {{else}}
+                    <a href="/buyorrent?esno={{.estate.Estateno}}">
+                        <button class="maininfo-broker-info-company-charges">
+                            我要买房
+                        </button>
+                    </a>
+                    {{end}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--        image  部分-->
+    <div style="height: auto;width: auto;margin-left: 200px">
+        <div style="background-color: #977c7c;height:474px;width: 670px;margin-left: 200px;margin-top: 50px">
+            <img style="height:474px;width: 670px;" src="statics/test/{{.estate.Image1}}">
+        </div>
+        {{range .igs}}
+        <div style="background-color: #aa9393;height:474px;width: 670px;margin-left: 200px;margin-top: 50px" >
+            <!--            室内图1-->
+            <img style="height:474px;width: 670px;"  src="statics/test/{{.Image2}}">
+        </div>
+        {{end}}
+    </div>
+</body>
+</html>

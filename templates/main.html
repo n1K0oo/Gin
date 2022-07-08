@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>买房</title>
+    <style>
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<!--top part-->
+<div style="height: 35px;background-color: rgb(243,245,251);width: 101%;margin-top: -8px;margin-left: -8px;">
+    <div style="margin-left:160px;padding-top: 6px">
+        <span style="font-size: 15px;">宁波&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="/homepage" style="color: black">首页</a>&nbsp&nbsp&nbsp&nbsp&nbsp新房&nbsp&nbsp&nbsp&nbsp&nbsp二手房
+        &nbsp&nbsp&nbsp&nbsp&nbsp租房&nbsp&nbsp&nbsp&nbsp&nbsp商铺写字楼&nbsp&nbsp&nbsp&nbsp&nbsp海外地产&nbsp&nbsp&nbsp&nbsp&nbsp装修&nbsp&nbsp&nbsp&nbsp&nbsp
+            楼讯&nbsp&nbsp&nbsp&nbsp&nbsp房产研究院&nbsp&nbsp&nbsp&nbsp&nbsp房价&nbsp&nbsp&nbsp&nbsp&nbsp问答&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            {{if eq .admin nil}}
+            <span><a href="/login">登录</a></span>
+            {{else}}
+            <span text="欢迎回来">{{.admin}}</span>&nbsp;<a href="/exitlogin">退出</a>
+            {{end}}
+        </span>
+    </div>
+</div>
+<!--logo层-->
+<div style="height:75px;width: 100%;margin-top: 20px">
+    <img src="statics/images/logo.png"style="margin-left:150px;margin-top: -20px" >
+    <div style="margin-left: 350px;margin-top: -25px">
+        <span style="font-weight:bold;">房源&nbsp&nbsp&nbsp小区&nbsp&nbsp&nbsp地图&nbsp&nbsp&nbsp找房&nbsp&nbsp&nbsp找经纪人&nbsp&nbsp&nbsp违规经纪人&nbsp&nbsp&nbsp</span>
+    </div>
+</div>
+
+
+<form method="post" action="/search">
+<!--搜索栏-->
+<div style="margin-left:150px">
+    <input placeholder="请输入地址、小区、楼盘名..." type="text" style="width: 575px;height:35px;font-size: 20px;border: 1px solid rgb(151,155,158);" name="search" value="{{.search}}">
+    <button style="cursor: pointer;background-color: rgb(35,201,147);border: 0px;color: white;height:40px;width:95px;font-size: 20px;margin-left: -6px;padding-bottom: 4px;" type="submit">搜索</button>
+    {{if eq .flag2 "2"}}
+    <input type="hidden" value="2" name="flag2">
+    {{else}}
+    <input type="hidden" value="1" name="flag2">
+    {{end}}
+</div>
+<!--筛选限制-->
+<br><br>
+<div style="width:1166px;height: 331px;background-color: #ffffff;margin-left: 150px;border:1px solid rgb(231,235,238);">
+<!--    区域街道-->
+    <div id="area"style="padding-top: 20px;color: rgb(151,155,158);margin-left: 30px">区域
+        <select style="width: 80pt;font-size: 13pt;margin-left: 11px;" v-model="where" name="area">
+            <option v-for="x in shuju" >${x}</option>
+        </select>
+        <div style="margin-left: 200px;color:rgb(151,155,158);margin-top: -23px">街道
+            <select style="width: 100pt;font-size: 13pt" v-if="where === '鄞州区'" name="street">
+                <option  v-for="x in jiedao1" >${x}</option>
+            </select>
+            <select style="width: 100pt;font-size: 13pt" v-else-if="where === '海曙区'" name="street">
+                <option  v-for="x in jiedao2" >${x}</option>
+            </select>
+            <select style="width: 100pt;font-size: 13pt" v-else-if="where === '北仑区'" name="street">
+                <option  v-for="x in jiedao3" >${x}</option>
+            </select>
+            <select style="width: 100pt;font-size: 13pt" v-else-if="where === '江北区'" name="street">
+                <option  v-for="x in jiedao4" >${x}</option>
+            </select>
+            <select style="width: 100pt;font-size: 13pt" v-else-if="where === '镇海区'" name="street">
+                <option  v-for="x in jiedao5" >${x}</option>
+            </select>
+            <select style="width: 100pt;font-size: 13pt" v-else-if="where === '奉化'" name="street">
+                <option  v-for="x in jiedao6" >${x}</option>
+            </select>
+        </div>
+
+    </div>
+    <HR style="height:2px;border:none;border-top:2px dotted  rgb(231,235,238);width: 95%;margin-top: 20px">
+    <!--新旧-->
+    <div id="type2">
+        <div style="padding-top: 5px;color: rgb(151,155,158);margin-left: 30px;font-size: 15px">
+            <span>新旧</span>
+            <select v-model="select" style="width: 80pt;font-size: 13pt;margin-left: 13px" name="type2">
+                <option>不限</option>
+                <option>新房</option>
+                <option>二手房</option>
+            </select>
+        </div>
+
+    </div>
+    <HR style="height:2px;border:none;border-top:2px dotted  rgb(231,235,238);width: 95%;margin-top: 10px">
+<!--    售价-->
+    <div id="price">
+        <div style="padding-top: 5px;color: rgb(151,155,158);margin-left: 30px;font-size: 15px">
+            {{if eq .type2 2}}
+            <span >售价</span>
+            <span @click="price_change0"  style="margin-left: 13px;cursor: pointer;">不限</span>
+            <span @click="price_change1"  style="margin-left: 13px;cursor: pointer;">100万以下</span>
+            <span @click="price_change2" style="margin-left: 13px;cursor: pointer;">100万-120万</span>
+            <span @click="price_change3" style="margin-left: 13px;cursor: pointer;">120万-150万</span>
+            <span @click="price_change4" style="margin-left: 13px;cursor: pointer;">150万-180万</span>
+            <span @click="price_change5" style="margin-left: 13px;cursor: pointer;">180万-210万</span>
+            <span @click="price_change6" style="margin-left: 13px;cursor: pointer;">210万-250万</span>
+            <span @click="price_change7" style="margin-left: 13px;cursor: pointer;">250万-300万</span>
+            <span @click="price_change8" style="margin-left: 13px;cursor: pointer;">300万以上</span>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input v-model="min_price" style="width: 41px;" name="price1">&nbsp-&nbsp
+            <input v-model="max_price" style="width: 41px;" name="price2">&nbsp&nbsp万
+            {{else}}
+            <span >租金</span>
+            <span @click="price_change0"  style="margin-left: 13px;cursor: pointer;">不限</span>
+            <span @click="price_change1"  style="margin-left: 13px;cursor: pointer;">500元以下</span>
+            <span @click="price_change2" style="margin-left: 13px;cursor: pointer;">500-800元</span>
+            <span @click="price_change3" style="margin-left: 13px;cursor: pointer;">800-1000元</span>
+            <span @click="price_change4" style="margin-left: 13px;cursor: pointer;">1000-1500元</span>
+            <span @click="price_change5" style="margin-left: 13px;cursor: pointer;">1500-2000元</span>
+            <span @click="price_change6" style="margin-left: 13px;cursor: pointer;">2000-3000元</span>
+            <span @click="price_change7" style="margin-left: 13px;cursor: pointer;">3000-5000元</span>
+            <span @click="price_change8" style="margin-left: 13px;cursor: pointer;">5000元以上</span>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input v-model="min_price" style="width: 41px;" name="price1">&nbsp-&nbsp
+            <input v-model="max_price" style="width: 41px;" name="price2">&nbsp&nbsp元
+            {{end}}
+        </div>
+    </div>
+    <HR style="height:2px;border:none;border-top:2px dotted  rgb(231,235,238);width: 95%;margin-top: 10px">
+<!--    面积-->
+    <div id="mianji">
+        <div style="padding-top: 5px;color: rgb(151,155,158);margin-left: 30px;font-size: 15px">
+            <span >面积</span>
+            <span  @click="mianji_change0" style="margin-left: 13px;cursor: pointer;">不限</span>
+            <span  @click="mianji_change1" style="margin-left: 13px;cursor: pointer;">60㎡以下</span>
+            <span  @click="mianji_change2" style="margin-left: 13px;cursor: pointer;">60㎡-70㎡</span>
+            <span  @click="mianji_change3" style="margin-left: 13px;cursor: pointer;">70㎡-80㎡</span>
+            <span  @click="mianji_change4" style="margin-left: 13px;cursor: pointer;">80㎡-90㎡</span>
+            <span  @click="mianji_change5" style="margin-left: 13px;cursor: pointer;">90㎡-100㎡</span>
+            <span  @click="mianji_change6" style="margin-left: 13px;cursor: pointer;">100㎡-110㎡</span>
+            <span  @click="mianji_change7" style="margin-left: 13px;cursor: pointer;">110㎡-120㎡</span>
+            <span  @click="mianji_change8" style="margin-left: 13px;cursor: pointer;">120㎡-130㎡</span>
+            <span  @click="mianji_change9" style="margin-left: 13px;cursor: pointer;">130㎡以上</span>&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input v-model="min_mianji" style="width: 41px;" name="mianji1">&nbsp-&nbsp
+            <input v-model="max_mianji" style="width: 41px;" name="mianji2">&nbsp&nbsp㎡
+        </div>
+    </div>
+    <HR style="height:2px;border:none;border-top:2px dotted  rgb(231,235,238);width: 95%;margin-top: 10px">
+    <div id="toward">
+        <div style="padding-top: 5px;color: rgb(151,155,158);margin-left: 30px;font-size: 15px">
+            <span >朝向</span>
+            <select style="width: 80pt;font-size: 13pt;margin-left: 13px" name="toward">
+                <option>不限</option>
+                <option>东</option>
+                <option>南</option>
+                <option>西</option>
+                <option>北</option>
+            </select>
+        </div>
+    </div>
+    <HR style="height:2px;border:none;border-top:2px dotted  rgb(231,235,238);width: 95%;margin-top: 10px">
+<!--    楼层-->
+    <div id="layer">
+        <div style="padding-top: 5px;color: rgb(151,155,158);margin-left: 30px;font-size: 15px">
+            <span >楼层</span>
+            <select style="width: 80pt;font-size: 13pt;margin-left: 13px" name="layer">
+                <option>不限</option>
+                <option>底层</option>
+                <option>低层</option>
+                <option>中层</option>
+                <option>高层</option>
+                <option>顶层</option>
+            </select>
+        </div>
+    </div>
+</div>
+</form>
+
+{{range .estates}}
+<!--搜索结果list-->
+<div id="home_list" style="width: 890px;background-color: #ffffff;height: auto;margin-left: 150px;border:1px solid rgb(171,171,171);border-left: none; border-right: none;border-bottom: none;margin-top: 50px" >
+    <!--    一个子项结果-->
+    <div id="item1"style="border-bottom: 1px solid rgb(171,171,171);height:221px;">
+        <!--        缩略图-->
+        <br><br>
+        <div style="width:180px;height:130px;">
+            <img src="statics/test/{{.Image1}}" style="width:180px;height:130px;">
+        </div>
+        <!--        房源信息-->
+        <div style="width:550px;background-color:rgb(255,255,255);height: 98%;margin-left: 200px;margin-top: -189px;">
+            <!--            房产名estatename-->
+            <a href="/esdetails?esno={{.Estateno}}">
+            <h2 style="width:470px;height: 30px;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;padding-top: 30px" >{{.Estatename}}</h2>
+            </a>
+            <div style="font-size: 14px; color: #474b4e;">
+                <!--  户型描述--> <span >{{.Describes}}</span>   &nbsp&nbsp<span style="color:rgb(171,171,171)">|</span>&nbsp&nbsp
+                <!--  面积-->    <span >{{.Mianji}}</span>㎡  &nbsp&nbsp<span style="color:rgb(171,171,171)">|</span>&nbsp&nbsp
+                <!--朝向-->      <span >{{.Toward}}</span>  &nbsp&nbsp<span style="color:rgb(171,171,171)">|</span>&nbsp&nbsp
+                <!--  位于层  --><span >{{.Layer}}</span>  &nbsp&nbsp<span style="color:rgb(171,171,171)">|</span>&nbsp&nbsp
+                <!-- 竣工年份-->  <span >{{.Btime}}</span>年建造
+            </div>
+            <br>
+            <div style="font-size: 14px; color: #474b4e;">
+                <!--                小区-->
+                <span >{{.Communityname}}</span>   &nbsp&nbsp<span style="color:rgb(171,171,171)">|</span>&nbsp&nbsp
+                <!--                详细地址-->
+                <span >{{.Area}}</span>-
+                <span >{{.Street}}</span>-
+                <span >{{.Address}}</span>
+            </div>
+            <br>
+            <!--            房产商-->
+            <div style="font-size: 14px; color: #474b4e;">
+                <span >{{.Estateagent}}</span>
+            </div>
+        </div>
+        {{if eq .Flag2 2}}
+        <!--        价格-->
+        <div style="width:130px;height: 98%;background-color: #ffffff;margin-left: 760px;margin-top: -216px;font-size: 14px;color: #474b4e;">
+            <br><br><br>
+            <!--            租金   -->
+            <h1 style="margin-left: 0px;color: rgb(253,77,57)" >{{.Allprice}}万</h1>
+            <!--            均价-->
+            <span style="margin-left: 42px;" >{{.Price}}</span>元/㎡
+        </div>
+        {{else}}
+        <!--        价格-->
+        <div style="width:130px;height: 98%;background-color: #ffffff;margin-left: 760px;margin-top: -216px;font-size: 14px;color: #474b4e;">
+            <br><br><br>
+            <!--            租金   -->
+            <h1 style="color: rgb(253,77,57)" >{{.Price}}</h1><span style="font-size: 17px;color: rgb(253,77,57)">元/月</span>
+        </div>
+        {{end}}
+    </div>
+</div>
+{{end}}
+
+<script>
+    // 区域街道
+    var quyu = new Vue({
+        el:"#area",
+        data:{
+            where:'不限',
+            shuju:['不限','鄞州区','海曙区','北仑区','江北区','镇海区','奉化'],
+            jiedao1:['不限','下应街道','中河街道','东胜街道','明楼街道','潘火街道','百丈街道'],
+            jiedao2:['不限','南门街道','西门街道','江厦街道','月湖街道','鼓楼街道'],
+            jiedao3:['不限','北仑周边','柴桥','大碶','大榭','横河路','庐山路','戚家山','小港','霞浦'],
+            jiedao4:['不限','孔浦街道','白沙街道','甬江街道','庄桥街道','中马街道'],
+            jiedao5:['不限','蛟川街道','招宝山街道','庄市街道'],
+            jiedao6:['不限','江口街道','锦屏街道','岳林街道']
+        },
+        delimiters:['${','}'],
+        methods:{
+
+        }
+    })
+// 新旧类型
+    var type2 = new Vue({
+        el:"#type2",
+        data:{
+            select:"不限",
+        },
+        delimiters:['${','}'],
+    })
+// 价格
+    var price = new Vue({
+        el:"#price",
+        data:{
+            min_price:'',
+            max_price:''
+        },
+        delimiters:['${','}'],
+        methods: {
+            price_change0:function (){
+                this.min_price = ''
+                this.max_price = ''
+            },
+            price_change1:function (){
+                this.min_price = ''
+                this.max_price = 100
+            },
+            price_change2:function (){
+                this.min_price = 100
+                this.max_price = 120
+            },
+            price_change3:function (){
+                this.min_price = 120
+                this.max_price = 150
+            },
+            price_change4:function (){
+                this.min_price = 150
+                this.max_price = 180
+            },
+            price_change5:function (){
+                this.min_price = 180
+                this.max_price = 210
+            },
+            price_change6:function (){
+                this.min_price = 210
+                this.max_price = 250
+            },
+            price_change7:function (){
+                this.min_price = 250
+                this.max_price = 300
+            },
+            price_change8:function (){
+                this.min_price = 300
+                this.max_price = ''
+            },
+        }
+    })
+    // 面积
+    var mianji = new Vue({
+        el:"#mianji",
+        data:{
+            min_mianji:'',
+            max_mianji:'',
+        },
+        delimiters:['${','}'],
+        methods:{
+            mianji_change0:function (){
+                this.min_mianji = '';
+                this.max_mianji = '';
+            },
+            mianji_change1:function (){
+                this.min_mianji = '';
+                this.max_mianji = '60';
+            },
+            mianji_change2:function (){
+                this.min_mianji = '60';
+                this.max_mianji = '70';
+            },
+            mianji_change3:function (){
+                this.min_mianji = '70';
+                this.max_mianji = '80';
+            },
+            mianji_change4:function (){
+                this.min_mianji = '80';
+                this.max_mianji = '90';
+            },
+            mianji_change5:function (){
+                this.min_mianji = '90';
+                this.max_mianji = '100';
+            },
+            mianji_change6:function (){
+                this.min_mianji = '100';
+                this.max_mianji = '110';
+            },
+            mianji_change7:function (){
+                this.min_mianji = '110';
+                this.max_mianji = '120';
+            },
+            mianji_change8:function (){
+                this.min_mianji = '120';
+                this.max_mianji = '130';
+            },
+            mianji_change9:function (){
+                this.min_mianji = '130';
+                this.max_mianji = '';
+            }
+        }
+    })
+</script>
+</body>
+</html>

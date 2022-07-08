@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<title>register</title>
+		<meta charset="utf-8">
+		<link href="statics/css/style.css" rel='stylesheet' type='text/css' />
+</head>
+<body>
+	 <!-----start-main---->
+	 <div class="main">
+		<div class="login-form">
+			<h1>用户注册</h1>
+					<div class="head">
+						<img src="statics/images/user.png" alt=""/>
+					</div>
+				<form action="/userregister" method="post">
+						<input type="text" class="text" name="username" value="用户名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '用户名';}" >
+						<input type="text" name="password" value="密码" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '密码';}">
+						<input type="text" name="name" value="姓名" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '姓名';}">
+						<input type="text" name="tel" value="电话" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '电话';}">
+						<input type="text" name="ID" value="身份证" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = '身份证';}">
+						<div class="submit">
+							<input type="submit"  value="注册" >
+					</div>
+					<p><a href="/login">已有账号?立即登录！</a></p>
+				</form>
+			</div>
+			<!--//End-login-form-->
+			 <!-----start-copyright---->
+
+				<!-----//end-copyright---->
+		</div>
+			 <!-----//end-main---->
+		 		
+<div style="display:none"><script src='http://v7.cnzz.com/stat.php?id=155540&web_id=155540' language='JavaScript' charset='gb2312'></script></div>
+</body>
+</html>
